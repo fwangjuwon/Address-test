@@ -15,13 +15,24 @@ https://www.juso.go.kr/addrlink/addrLinkUrl.do?confmKey=devU01TX0FVVEgyMDIyMDUyM
 <br />
     <button onclick="jusoPopup()">주소 찾아줘 </button>
    <br />
-    <input type="text" value="" />
+    <input type="text" value="" id="roadFullAddr"/>
 
     <script>
         function jusoPopup(){
             let jusoUrl = $("#juso-url").val();
             window.open(jusoUrl ,"pop", "width=570, height=420");
+            //window.close();
         }
+
+        async function jusoCheck(){
+            let response = await fetch("/juso/check");
+            let responseParse = await response.text();
+            console.log(responseParse);
+            $("#roadFullAddr").val(responseParse);
+        }
+
+        setInterval(jusoCheck, 1000);  //1초에 한번씩 얘 실행해 
+
     </script>
 </body>
 </html>
